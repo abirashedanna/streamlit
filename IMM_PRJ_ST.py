@@ -28,7 +28,7 @@ sns.set_style('darkgrid')
 
 ################################################################
 # Add the title of the application
-st.title('Vaccination Analysis')
+st.title('Vaccination Analysis Among World Population of One Year Old Infants Up to 2019')
 
 
 
@@ -96,7 +96,7 @@ reg_dstct = df_melted['unicef_region'].dropna().unique()
 
 # Add an About button to show the details about this data set and analysis
 if st.sidebar.checkbox('About'):
-    st.markdown(""" Write Things About the data Click inspect for the data Webpage and enter them """,unsafe_allow_html=True)
+    st.markdown(""" Dear Donor this tool will help you compare the immunization percent for mandatory vaccines in infants less than one year old.  Source of our data is the UNICEF immunization covergae data. You can scroll it first by selecting the vaccine, then the years, then the countries income group, then the region up to the country. We hope you will be able to make a generous contribution to a country of your selection and be part of our Gavi Alliance """,unsafe_allow_html=True)
 
 # Select box for the Vaccine Type
 vaccine_slc = st.sidebar.selectbox('Vaccine Type', vaccine_dstnct.tolist())
@@ -129,7 +129,7 @@ cont_reg_radio = st.sidebar.radio('Choose by Country or By Region',
 # If we choose country, then show Multi-selct box for the Countries which reads from the list of the selected Income Groups
 if cont_reg_radio == 'Country':
     country_grp_slc = st.sidebar.multiselect('Country',
-                                         df_melted.loc[df_melted['INC_GRP'].isin(income_grp_slc)].iloc[:,2].unique().tolist())
+                                             df_melted.loc[df_melted['INC_GRP'].isin(income_grp_slc)].iloc[:,2].unique().tolist())
 
 # If we choose Region, then show Multi-selct box for the Regions which reads from the list of the selected Income Groups
 if cont_reg_radio == 'Region':
@@ -330,8 +330,9 @@ if cont_reg_radio == 'Region':
     .groupby(['unicef_region'])['Percentage'].mean().reset_index().sort_values(by=['unicef_region'])
     # data_min2 = data_min[data_min['Year']==data_min['Year'].mean()].reset_index(drop=True)
     mean = data_mean
-    mean = mean.rename(columns={"country": "Country",
-                              "iso3": "Country Abbr"})
+    # min = min.rename(columns={"unicef_region": "Region",
+    #                           "Year": "Year Min",
+    #                           "Percentage": "Min %"})
     mean
 
 else:
@@ -341,8 +342,9 @@ else:
     .groupby(['country', 'iso3'])['Percentage'].mean().reset_index().sort_values(by=['country'])
     # data_min2 = data_min[data_min['Year']==data_min['Year'].mean()].reset_index(drop=True)
     mean = data_mean
-    mean = mean.rename(columns={"country": "Country",
-                              "iso3": "Country Abbr"})
+    # min = min.rename(columns={"country": "Country",
+    #                           "Year": "Year Min",
+    #                           "Percentage": "Min %"})
     mean
 
 
@@ -350,7 +352,7 @@ else:
 
 ################################################################
 # From the data we selected, drop all columns, select only the year and percentage
-# then take the average of the percentage
+# then take the average of the percentage to develop the lien chart
 if cont_reg_radio == 'Region':
     st.header('Timeline of the Percetage change in vaccinations on the Aggregate Region Level')
     data_line_chart = data_1.drop(['unicef_region', 'iso3', 'country', 'vaccine', 'INC_GRP'], axis=1)\
