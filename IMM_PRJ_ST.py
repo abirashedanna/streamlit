@@ -330,7 +330,7 @@ if cont_reg_radio == 'Region':
     .groupby(['unicef_region'])['Percentage'].mean().reset_index().sort_values(by=['unicef_region'])
     # data_min2 = data_min[data_min['Year']==data_min['Year'].mean()].reset_index(drop=True)
     mean = data_mean
-    mean = mean.rename(columns={"country": "Country
+    mean = mean.rename(columns={"country": "Country",
                               "iso3": "Country Abbr"})
     mean
 
