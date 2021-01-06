@@ -282,7 +282,7 @@ if st.checkbox('Show data table'):
 # Display the min and max by country
 # Here we relied on the min date and max date
 if cont_reg_radio == 'Region':
-    st.header('Percetage change in vaccinations between the Min and Max by Region')
+    st.header('Percentage change in vaccinations between the Min and Max by Region')
     
     data_min = data_1.drop(['iso3', 'country', 'vaccine', 'INC_GRP'], axis=1)\
     .groupby(['unicef_region', 'Year'])['Percentage'].mean().reset_index().sort_values(by=['unicef_region'])
@@ -303,7 +303,7 @@ if cont_reg_radio == 'Region':
     percentage_change['% Change'] = ((percentage_change['Max %'] - percentage_change['Min %'])/percentage_change['Min %'] ) * 100
     percentage_change
 else:
-    st.header('Percetage change in vaccinations between the Min and Max by Country')
+    st.header('Percentage change in vaccinations between the Min and Max by Country')
     data_min = data_1.drop(['iso3', 'unicef_region', 'vaccine', 'INC_GRP'], axis=1)\
     .groupby(['country', 'Year'])['Percentage'].mean().reset_index().sort_values(by=['country'])
     data_min2 = data_min[data_min['Year']==data_min['Year'].min()].reset_index(drop=True)
@@ -360,14 +360,14 @@ else:
 # From the data we selected, drop all columns, select only the year and percentage
 # then take the average of the percentage to develop the lien chart
 if cont_reg_radio == 'Region':
-    st.header('Timeline of the Percetage change in vaccinations on the Aggregate Region Level')
+    st.header('Timeline of the Percentage change in vaccinations on the Aggregate Region Level')
     data_line_chart = data_1.drop(['unicef_region', 'iso3', 'country', 'vaccine', 'INC_GRP'], axis=1)\
         .groupby(['Year'])['Percentage'].mean().reset_index().sort_values(by=['Year'])
     data_line_chart = data_line_chart[['Year', 'Percentage']]
     data_line_chart['Year'] = pd.to_datetime(data_line_chart.Year.astype(str), format='%Y').dt.date  # Change back the year to date format so we can plot correctly
     data_line_chart = data_line_chart.rename(columns={'Year':'index'}).set_index('index')
 else:
-    st.header('Timeline of the Percetage change in vaccinations on the Aggregate Country Level')
+    st.header('Timeline of the Percentage change in vaccinations on the Aggregate Country Level')
     data_line_chart = data_1.drop(['unicef_region', 'iso3', 'country', 'vaccine', 'INC_GRP'], axis=1)\
         .groupby(['Year'])['Percentage'].mean().reset_index().sort_values(by=['Year'])
     data_line_chart = data_line_chart[['Year', 'Percentage']]
