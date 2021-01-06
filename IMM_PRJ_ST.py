@@ -9,9 +9,9 @@ Created on Sun Jan  3 12:09:39 2021
 ################################################################
 # Import the libraries again
 import pandas as pd, numpy as np, os, shutil, streamlit as st, base64, datetime as dt, altair as alt, seaborn as sns, matplotlib.pyplot as plt, more_itertools as mit
-# from bokeh.plotting import figure
+from bokeh.plotting import figure
 from datetime import datetime, date, timedelta
-from statsmodels.tsa.seasonal import STL
+# from statsmodels.tsa.seasonal import STL
 from pandas.plotting import register_matplotlib_converters
 import plotly.express as px
 # import plotly.express as px
@@ -96,7 +96,7 @@ reg_dstct = df_melted['unicef_region'].dropna().unique()
 
 # Add an About button to show the details about this data set and analysis
 if st.sidebar.checkbox('About'):
-    st.markdown(""" Dear Donor this tool will help you compare the immunization percent for mandatory vaccines in infants less than one year old.  Source of our data is the UNICEF immunization covergae data. You can scroll it first by selecting the vaccine, then the years, then the countries income group, then the region up to the country. We hope you will be able to make a generous contribution to a country of your selection and be part of our Gavi Alliance """,unsafe_allow_html=True)
+    st.markdown(""" Dear Donor this tool will help you compare the immunization percent for 14 mandatory vaccines in infants less than one year old.  Source of our data is the UNICEF immunization coverage data. You can scroll it first by selecting the vaccine, then the years, then the countries income group, then the region up to the country. We hope you will be able to make a generous contribution to a country of your selection and be part of our Gavi Alliance. To know more about our Alliance please visit https://www.gavi.org/our-alliance/about """,unsafe_allow_html=True)
 
 # Select box for the Vaccine Type
 vaccine_slc = st.sidebar.selectbox('Vaccine Type', vaccine_dstnct.tolist())
