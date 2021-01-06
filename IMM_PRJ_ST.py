@@ -28,7 +28,7 @@ sns.set_style('darkgrid')
 
 ################################################################
 # Add the title of the application
-st.title('Vaccination Analysis New2')
+st.title('Vaccination Analysis')
 
 
 
