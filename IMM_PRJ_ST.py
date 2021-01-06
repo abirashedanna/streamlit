@@ -210,6 +210,7 @@ if cont_reg_radio == 'Country and Region':
 
 
 
+
 ################################################################
 # Add download Button to the canvas
 def get_table_download_link(df):
@@ -226,6 +227,11 @@ def get_table_download_link(df):
 
 # display the data in a matrix
 # st.write(data_1)
+
+# siplay the name of the vaccine chosen
+vac = "The selected vaccine is " + vaccine_slc
+st.header(vac)
+
 
 # Display the data frame in a tableau 
 # Using a checkbox, if the checkbox is checked then show data
