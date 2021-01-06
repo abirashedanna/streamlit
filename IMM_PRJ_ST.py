@@ -8,7 +8,7 @@ Created on Sun Jan  3 12:09:39 2021
 
 ################################################################
 # Import the libraries again
-import pandas as pd, numpy as np, os, pyodbc, shutil, streamlit as st, base64, pyodbc, datetime as dt, altair as alt, seaborn as sns, matplotlib.pyplot as plt, more_itertools as mit
+import pandas as pd, numpy as np, os, shutil, streamlit as st, base64, datetime as dt, altair as alt, seaborn as sns, matplotlib.pyplot as plt, more_itertools as mit
 # from bokeh.plotting import figure
 from datetime import datetime, date, timedelta
 from statsmodels.tsa.seasonal import STL
@@ -281,19 +281,19 @@ if cont_reg_radio == 'Region':
     data_min = data_1.drop(['iso3', 'country', 'vaccine', 'INC_GRP'], axis=1)\
     .groupby(['unicef_region', 'Year'])['Percentage'].mean().reset_index().sort_values(by=['unicef_region'])
     data_min2 = data_min[data_min['Year']==data_min['Year'].min()].reset_index(drop=True)
-    min = data_min2
-    min = min.rename(columns={"unicef_region": "Region",
+    min2 = data_min2
+    min2 = min2.rename(columns={"unicef_region": "Region",
                               "Year": "Year Min",
                               "Percentage": "Min %"})
 
     data_max = data_1.drop(['iso3', 'country', 'vaccine', 'INC_GRP'], axis=1)\
     .groupby(['unicef_region', 'Year'])['Percentage'].mean().reset_index().sort_values(by=['unicef_region'])
     data_max2 = data_max[data_max['Year']==data_max['Year'].max()].reset_index(drop=True)
-    max = data_max2
-    max = max.rename(columns={"unicef_region": "Region",
+    max2 = data_max2
+    max2 = max2.rename(columns={"unicef_region": "Region",
                           "Year": "Year Max",
                           "Percentage": "Max %"})
-    percentage_change = pd.merge(min, max, how='left', on='Region')
+    percentage_change = pd.merge(min2, max2, how='left', on='Region')
     percentage_change['% Change'] = ((percentage_change['Max %'] - percentage_change['Min %'])/percentage_change['Min %'] ) * 100
     percentage_change
 else:
@@ -301,19 +301,19 @@ else:
     data_min = data_1.drop(['iso3', 'unicef_region', 'vaccine', 'INC_GRP'], axis=1)\
     .groupby(['country', 'Year'])['Percentage'].mean().reset_index().sort_values(by=['country'])
     data_min2 = data_min[data_min['Year']==data_min['Year'].min()].reset_index(drop=True)
-    min = data_min2
-    min = min.rename(columns={"country": "Country",
+    min2 = data_min2
+    min2 = min2.rename(columns={"country": "Country",
                               "Year": "Year Min",
                               "Percentage": "Min %"})
     
     data_max = data_1.drop(['iso3', 'unicef_region', 'vaccine', 'INC_GRP'], axis=1)\
     .groupby(['country', 'Year'])['Percentage'].mean().reset_index().sort_values(by=['country'])
     data_max2 = data_max[data_max['Year']==data_max['Year'].max()].reset_index(drop=True)
-    max = data_max2
-    max = max.rename(columns={"country": "Country",
+    max2 = data_max2
+    max2 = max2.rename(columns={"country": "Country",
                           "Year": "Year Max",
                           "Percentage": "Max %"})
-    percentage_change = pd.merge(min, max, how='left', on='Country')
+    percentage_change = pd.merge(min2, max2, how='left', on='Country')
     percentage_change['% Change'] = ((percentage_change['Max %'] - percentage_change['Min %'])/percentage_change['Min %'] ) * 100
     percentage_change
 
@@ -330,9 +330,8 @@ if cont_reg_radio == 'Region':
     .groupby(['unicef_region'])['Percentage'].mean().reset_index().sort_values(by=['unicef_region'])
     # data_min2 = data_min[data_min['Year']==data_min['Year'].mean()].reset_index(drop=True)
     mean = data_mean
-    # min = min.rename(columns={"unicef_region": "Region",
-    #                           "Year": "Year Min",
-    #                           "Percentage": "Min %"})
+    mean = mean.rename(columns={"country": "Country
+                              "iso3": "Country Abbr"})
     mean
 
 else:
@@ -342,9 +341,8 @@ else:
     .groupby(['country', 'iso3'])['Percentage'].mean().reset_index().sort_values(by=['country'])
     # data_min2 = data_min[data_min['Year']==data_min['Year'].mean()].reset_index(drop=True)
     mean = data_mean
-    # min = min.rename(columns={"country": "Country",
-    #                           "Year": "Year Min",
-    #                           "Percentage": "Min %"})
+    mean = mean.rename(columns={"country": "Country
+                              "iso3": "Country Abbr"})
     mean
 
 
